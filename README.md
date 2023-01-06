@@ -9,7 +9,15 @@
 * Details about Openconfig gNMI specfications for Junos Telemtry Interface can be obtained from [Reference](https://www.juniper.net/documentation/us/en/software/junos/interfaces-telemetry/topics/concept/open-config-grpc-junos-telemetry-interface-understanding.html)
 * [JTIMON](https://github.com/nileshsimaria/jtimon)
 ## Execution
-### Prepareing Mgmt Client (Ubuntu 20.04)
+### Preparing Junos Device
+```
+cofnig 
+set system services extension-service request-response grpc clear-text port 32767
+set system services extension-service request-response grpc max-connections 30
+set system services extension-service request-response grpc skip-authentication
+commit and quit
+```
+### Preparing Mgmt Client (Ubuntu 20.04)
 * Installation instructions for Go language can be found on [Reference](https://go.dev/doc/install)
 * Installation instructions for docker-ce can be found on [Reference](https://docs.docker.com/engine/install/ubuntu/)
 * Clone JITMON git repo. 
@@ -46,7 +54,7 @@ EOF
 cat <<EOF > /mnt/influx/jtimon-optical-infux.conf 
 {
     "port": 32767,
-    "host": "10.161.36.89",
+    "host": "junos-evo-mgmt-ip",
     "user": "user",
     "password": "password",
     "cid": "jtimon",
