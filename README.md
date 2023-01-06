@@ -176,3 +176,35 @@ http://mgmt-client-ip:3000/datasources/new
 * Click on New -> Import on the next screen 
 * On next screen click on "Upload JSON File"
 * Uploaed zr-plus-optics.json file and it shall populate Grafana dashboard (yet not uploaded with this git repo)
+* Following parameters for ZR+ optics would be displayed in the Grafana
+* [Reference](https://www.oiforum.com/wp-content/uploads/OIF-C-CMIS-01.0.pdf)
+
+```
+- Tx Power, 
+- Wavelength (nm & THz), 
+- Speed, 
+- FEC, 
+- Rx Total Power and Signal Power (dBm and mW),
+- Tx Power, 
+- Module temperature, 
+- Carrier offset, 
+- Pre-FEC bit error rate, 
+- Uncorrected FEC, 
+- Chromatic disperion,  
+- DGD, 
+- Carrier offset frequency, 
+- OSNR, 
+- SOPMD, 
+- PDL
+- Laser Frequency Error
+- Pre-FEC BER
+- CD
+- DGD
+- PDL
+- SOPMD
+- OSNR
+- eSNR
+- Tx Power
+- Rx Total Power
+- SOP
+```
