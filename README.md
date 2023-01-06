@@ -11,7 +11,7 @@
 ## Execution
 ### Preparing Junos Device
 ```
-cofnig 
+config 
 set system services extension-service request-response grpc clear-text port 32767
 set system services extension-service request-response grpc max-connections 30
 set system services extension-service request-response grpc skip-authentication
@@ -20,7 +20,7 @@ commit and quit
 ### Preparing Mgmt Client (Ubuntu 20.04)
 * Installation instructions for Go language can be found on [Reference](https://go.dev/doc/install)
 * Installation instructions for docker-ce can be found on [Reference](https://docs.docker.com/engine/install/ubuntu/)
-* Clone JITMON git repo. 
+* Clone JTIMON git repo. 
 ```
 cd ~
  git clone https://github.com/nileshsimaria/jtimon.git
@@ -29,7 +29,6 @@ cd ~
 ```
 cd ~/jtimin
 make docker 
-docker images
 docker images
 REPOSITORY        TAG                 IMAGE ID       CREATED       SIZE
 jtimon            latest              46ac91eb129b   2 weeks ago   25.9MB
