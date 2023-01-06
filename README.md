@@ -162,3 +162,10 @@ username:           admin
 password:           lab123
 ```
 * Click on save & test and it should return message "datasource is working"
+* Openfollowing URL to populate add Grafana dashboard
+```
+http://mgmt-client-ip:3000/datasources/new
+```
+* Click on New -> Import on the next screen 
+* On next screen click on "Upload JSON File"
+* Uploaed zr-plus-optics.json file and it shall populate Grafana dashboard 
