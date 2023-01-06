@@ -190,15 +190,13 @@ http://mgmt-client-ip:3000/datasources/new
 - Carrier offset, 
 - Pre-FEC bit error rate, 
 - Uncorrected FEC, 
-- Chromatic disperion,  
-- DGD, 
 - Carrier offset frequency, 
 - OSNR, 
 - SOPMD, 
 - PDL
 - Laser Frequency Error
 - Pre-FEC BER
-- CD
+- Chromatic disperion (CD)
 - DGD
 - PDL
 - SOPMD
