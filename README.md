@@ -175,4 +175,4 @@ http://mgmt-client-ip:3000/datasources/new
 ```
 * Click on New -> Import on the next screen 
 * On next screen click on "Upload JSON File"
-* Uploaed zr-plus-optics.json file and it shall populate Grafana dashboard 
+* Uploaed zr-plus-optics.json file and it shall populate Grafana dashboard (yet not uploaded with this git repo)
