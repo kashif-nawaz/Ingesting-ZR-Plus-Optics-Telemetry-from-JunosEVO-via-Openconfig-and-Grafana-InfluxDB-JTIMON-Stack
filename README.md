@@ -170,7 +170,7 @@ username:           admin
 password:           lab123
 ```
 * Click on save & test and it should return message "datasource is working"
-* Openfollowing URL to populate add Grafana dashboard
+* Open following URL to  add and populate Grafana dashboard
 ```
 http://mgmt-client-ip:3000/datasources/new
 ```
