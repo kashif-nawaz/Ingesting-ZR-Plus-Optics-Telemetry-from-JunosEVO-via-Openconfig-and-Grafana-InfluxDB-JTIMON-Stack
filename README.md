@@ -2,24 +2,26 @@
 
 ## Aim
 * In this wiki I will explain how to export ZR+ optics telemetry information from Junos EVO via gNMI and Ingesting that info via Grafana , InfluxDB and JTIMON Stack.
-* Acknowledgment- Ground breaking work was done by Anton-Alita [Reference](https://github.com/a-elita) and [Reference](https://community.juniper.net/blogs/anton-elita/2022/07/18/telemetry-collector-and-dataviz-on-junos-evo?CommunityKey=44efd17a-81a6-4306-b5f3-e5f82402d8d3)
+* Acknowledgment- Ground breaking work was done by Anton-Elita [Reference](https://github.com/a-elita) and [Reference](https://community.juniper.net/blogs/anton-elita/2022/07/18/telemetry-collector-and-dataviz-on-junos-evo?CommunityKey=44efd17a-81a6-4306-b5f3-e5f82402d8d3).
 ## References 
-* Junos supports Openconfig working group gNMI specifications to export operational states via Junos Telemetry Interface [Reference](https://www.juniper.net/documentation/us/en/software/junos/grpc-network-services/topics/concept/grpc-services-overview.html#:~:text=Whereas%20gNMI%20handles%20state%20management,common%20operations%20on%20network%20devices.)
-* Details about Junos Telemtry Interface can be obtained from [Reference](https://www.juniper.net/documentation/us/en/software/junos/interfaces-telemetry/topics/concept/junos-telemetry-interface-oveview.html)
-* Details about Openconfig gNMI specfications for Junos Telemtry Interface can be obtained from [Reference](https://www.juniper.net/documentation/us/en/software/junos/interfaces-telemetry/topics/concept/open-config-grpc-junos-telemetry-interface-understanding.html)
+* Junos supports Openconfig working group gNMI specifications to export operational states via Junos Telemetry Interface [Reference](https://www.juniper.net/documentation/us/en/software/junos/grpc-network-services/topics/concept/grpc-services-overview.html#:~:text=Whereas%20gNMI%20handles%20state%20management,common%20operations%20on%20network%20devices.).
+* Details about Junos Telemtry Interface can be obtained from [Reference](https://www.juniper.net/documentation/us/en/software/junos/interfaces-telemetry/topics/concept/junos-telemetry-interface-oveview.html).
+* Details about Openconfig gNMI specfications for Junos Telemtry Interface can be obtained from [Reference](https://www.juniper.net/documentation/us/en/software/junos/interfaces-telemetry/topics/concept/open-config-grpc-junos-telemetry-interface-understanding.html).
 * [JTIMON](https://github.com/nileshsimaria/jtimon)
 ## Execution
 ### Preparing Junos Device
+* Upload xmlproxyd_dgd.yang (code written by Anton-Elita)into Junos EVO device in current user home directory.
 ```
 config 
 set system services extension-service request-response grpc clear-text port 32767
 set system services extension-service request-response grpc max-connections 30
 set system services extension-service request-response grpc skip-authentication
 commit and quit
+request system yang add proxy-xml module xmlproxyd_dgd.yang package dgd
 ```
 ### Preparing Mgmt Client (Ubuntu 20.04)
-* Installation instructions for Go language can be found on [Reference](https://go.dev/doc/install)
-* Installation instructions for docker-ce can be found on [Reference](https://docs.docker.com/engine/install/ubuntu/)
+* Installation instructions for Go language can be found on [Reference](https://go.dev/doc/install).
+* Installation instructions for docker-ce can be found on [Reference](https://docs.docker.com/engine/install/ubuntu/).
 * Clone JTIMON git repo. 
 ```
 cd ~
@@ -33,8 +35,8 @@ docker images
 REPOSITORY        TAG                 IMAGE ID       CREATED       SIZE
 jtimon            latest              46ac91eb129b   2 weeks ago   25.9MB
 ```
-* Make required directories for docker volumn mounting
-* I have used a seprate hdd and mounted it on /mnt/influx
+* Make required directories for docker volumn mounting.
+* I have used a seprate hdd and mounted it on /mnt/influx.
 ```
 mkdir -p /mnt/influx/grafana/dashboards
 chmod -R 777 /mnt/influx/grafana/dashboards/
@@ -110,7 +112,7 @@ cat <<EOF > /mnt/influx/jtimon-optical-infux.conf
 }
 EOF 
 ```
-* Creating Docker containers 
+* Create Docker containers. 
 
 ```
 docker run \
@@ -148,16 +150,16 @@ CONTAINER ID   IMAGE                    COMMAND                  CREATED        
 b2c28cfe91c7   jtimon                   "/usr/local/bin/jtim…"   2 weeks ago    Up 10 hours             jtimon
 f665e5711554   influxdb:1.8.10          "/entrypoint.sh infl…"   2 weeks ago    Up 10 hours             influxdb
 ```
-* Login into Grafana GUI using admin/admin credentials
+* Login into Grafana GUI using admin/admin credentials.
 ```
 http://mgmt-client-ip:3000
 ```
-* Add new data source into Grafana GUI, open following URL
+* Add new data source into Grafana GUI, open following URL.
 
 ```
 https://mgmt-client-ip:3000/datasources/new
 ```
-* Click on InfluxDB once you are on following screen
+* Click on InfluxDB once you are on following screen.
 ![InfluxDB](./images/influxdb.png)
 
 * In the next window provide following paramters.
@@ -168,15 +170,15 @@ database:           telegraf
 username:           admin   
 password:           lab123
 ```
-* Click on save & test and it should return message "datasource is working"
-* Open following URL to  add and populate Grafana dashboard
+* Click on save & test and it should return message "datasource is working".
+* Open following URL to  add and populate Grafana dashboardi.
 ```
 http://mgmt-client-ip:3000/datasources/new
 ```
-* Click on New -> Import on the next screen 
-* On next screen click on "Upload JSON File"
-* Uploaed zr-plus-optics.json file and it shall populate Grafana dashboard (yet not uploaded with this git repo)
-* Following parameters for ZR+ optics would be displayed in the Grafana
+* Click on New -> Import on the next screen.
+* On next screen click on "Upload JSON File".
+* Upload zr_plus_optics.json file and it shall populate Grafana dashboard.
+* Following parameters for ZR+ optics would be displayed in the Grafana.
 * [Reference](https://www.oiforum.com/wp-content/uploads/OIF-C-CMIS-01.0.pdf)
 
 ```
