@@ -1,0 +1,71 @@
+/*
+ * Example yang for generating OC equivalent of internal meta tree
+   save as "xmlproxyd_dgd.yang" on router.
+   cli : show interfaces diagnostics optics
+   The required match parameter is lane-dgd
+   jnpr@C1-R1> show interfaces diagnostics optics | display xml | match dgd
+                        <lane-dgd>3.0</lane-dgd>
+   Author: Anton Elita (aelita@juniper.net)
+ */
+
+module xmlproxyd_dgd {
+  yang-version 1;
+  namespace "http://juniper.net/yang/software";
+  prefix dgd;
+  import drend {
+    prefix dr;
+  }
+  grouping interface-information-grouping {
+    list physical-interface {
+      key "name";
+      dr:source "physical-interface";
+      leaf name {
+        dr:source name;
+        type string;
+      }
+
+      container optics-diagnostics {
+       dr:source "optics-diagnostics";
+
+       list optics-diagnostics-lane-values {
+        key "lane-index";
+        dr:source "optics-diagnostics-lane-values";
+
+        leaf lane-index {
+          dr:source lane-index;
+          type int32;
+        }
+
+        leaf lane-dgd {
+           dr:source lane-dgd;
+           type string;
+        }
+        leaf laser-rx-optical-power {
+           dr:source laser-rx-optical-power;
+           type string;
+        }
+        leaf laser-output-power {
+           dr:source laser-output-power;
+           type string;
+        }
+       }
+     }
+    }
+  }
+
+  dr:command-app "xmlproxyd";
+  rpc juniper-netconf-get {
+    dr:command-top-of-output "/junos";
+    dr:command-full-name "drend juniper-netconf-get";
+    dr:cli-command "show interfaces diagnostics optics";
+    dr:command-help "default <get> rpc";
+    output {
+      container junos {
+       container interface-information {
+        dr:source "/interface-information";
+        uses interface-information-grouping;
+      }
+    }
+   }
+  }
+}
